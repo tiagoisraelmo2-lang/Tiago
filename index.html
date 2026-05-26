@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Jogo de Ética com Tiago</title>
 
 <style>
@@ -92,6 +92,190 @@
     font-size: 18px;
     color: #d0d0d0;
   }
+
+  /* CONTROLES PARA CELULAR */
+  html, body {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    overscroll-behavior: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  #controlesMobile {
+    position: absolute;
+    inset: 0;
+    display: none;
+    pointer-events: none;
+    z-index: 30;
+  }
+
+  body.modoMobile #controlesMobile {
+    display: block;
+  }
+
+  .grupoControleMobile {
+    position: absolute;
+    pointer-events: auto;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .grupoMovimentoMobile {
+    left: 22px;
+    bottom: 28px;
+  }
+
+  .grupoAcoesMobile {
+    right: 22px;
+    bottom: 28px;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .linhaAcoesMobile,
+  .linhaEscolhasMobile {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+
+  .botaoMobile {
+    width: 78px;
+    height: 78px;
+    border-radius: 22px;
+    border: 2px solid rgba(255,255,255,0.45);
+    background: rgba(0,0,0,0.42);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 1px 1px #000;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    touch-action: none;
+  }
+
+  .botaoMobile:active,
+  .botaoMobile.ativo {
+    transform: scale(0.94);
+    background: rgba(255, 217, 102, 0.55);
+    border-color: rgba(255,255,255,0.9);
+  }
+
+  .botaoMobile.pequeno {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    font-size: 23px;
+  }
+
+  .botaoMobile.acao {
+    width: 72px;
+    height: 72px;
+  }
+
+  .botaoMobile.pular {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 900px), (pointer: coarse) {
+    body:not(.forcarDesktop) #controlesMobile {
+      display: block;
+    }
+
+    #painel {
+      left: 8px;
+      top: 8px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      line-height: 1.25;
+      max-width: 230px;
+      background: rgba(0,0,0,0.55);
+    }
+
+    #caixaDialogo {
+      bottom: 112px;
+      width: calc(100vw - 24px);
+      min-height: 105px;
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+
+    #nomeFalante {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    #textoDialogo {
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    #opcoesDialogo {
+      font-size: 17px;
+      line-height: 1.35;
+      margin-top: 8px;
+    }
+
+    #dicaDialogo {
+      font-size: 13px;
+      margin-top: 6px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .botaoMobile {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      font-size: 24px;
+    }
+
+    .botaoMobile.pular {
+      width: 72px;
+      height: 72px;
+    }
+
+    .botaoMobile.acao {
+      width: 58px;
+      height: 58px;
+      font-size: 22px;
+    }
+
+    .botaoMobile.pequeno {
+      width: 48px;
+      height: 48px;
+      font-size: 20px;
+    }
+
+    .grupoMovimentoMobile {
+      left: 12px;
+      bottom: 18px;
+      gap: 10px;
+    }
+
+    .grupoAcoesMobile {
+      right: 12px;
+      bottom: 18px;
+      gap: 9px;
+    }
+
+    .linhaAcoesMobile,
+    .linhaEscolhasMobile {
+      gap: 8px;
+    }
+  }
+
 </style>
 </head>
 
@@ -106,6 +290,27 @@
     <div id="opcoesDialogo"></div>
     <div id="dicaDialogo"></div>
   </div>
+
+  <div id="controlesMobile">
+    <div class="grupoControleMobile grupoMovimentoMobile">
+      <button class="botaoMobile" data-segurar="a" aria-label="Andar para esquerda">◀</button>
+      <button class="botaoMobile" data-segurar="d" aria-label="Andar para direita">▶</button>
+    </div>
+
+    <div class="grupoControleMobile grupoAcoesMobile">
+      <div class="linhaEscolhasMobile">
+        <button class="botaoMobile pequeno" data-toque="1" aria-label="Escolha 1">1</button>
+        <button class="botaoMobile pequeno" data-toque="2" aria-label="Escolha 2">2</button>
+        <button class="botaoMobile pequeno" data-toque="3" aria-label="Escolha 3">3</button>
+      </div>
+
+      <div class="linhaAcoesMobile">
+        <button class="botaoMobile acao" data-toque="c" aria-label="Abrir celular">C</button>
+        <button class="botaoMobile acao" data-toque="e" aria-label="Interagir">E</button>
+        <button class="botaoMobile pular" data-toque="w" aria-label="Pular">⬆</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -119,6 +324,7 @@ const nomeFalante = document.getElementById('nomeFalante');
 const textoDialogo = document.getElementById('textoDialogo');
 const opcoesDialogo = document.getElementById('opcoesDialogo');
 const dicaDialogo = document.getElementById('dicaDialogo');
+const controlesMobile = document.getElementById('controlesMobile');
 
 const LARGURA_VISAO = tela.width;
 const ALTURA_VISAO = tela.height;
@@ -249,15 +455,6 @@ imagemProfessorAndando.src = 'professor_andando.png';
 const imagemCelular = new Image();
 imagemCelular.src = 'celular.png';
 
-const imagemCelularGrupoBase = new Image();
-imagemCelularGrupoBase.src = 'celular_grupo_base.png';
-
-const imagemCelularGrupoZoando = new Image();
-imagemCelularGrupoZoando.src = 'celular_grupo_zoando.png';
-
-const imagemCelularGrupoDefendendo = new Image();
-imagemCelularGrupoDefendendo.src = 'celular_grupo_defendendo.png';
-
 /* CONTROLES */
 const teclas = {};
 
@@ -324,21 +521,6 @@ let meninoFalsoMexendoCelular = false;
 let professorNaSala = false;
 let professorAndando = false;
 let aulaInformaticaFinalizada = false;
-let saidaInformaticaLiberada = false;
-let professorSaiuInformatica = false;
-let arthurSaiuInformatica = false;
-
-/* CENA DA MENSAGEM NO CELULAR */
-let cenaMensagemCelular = 'inativo';
-let notificacaoCelularAtiva = false;
-let tempoNotificacaoCelular = 0;
-let podeAbrirCelular = false;
-let celularAberto = false;
-let escolhaMensagemAtiva = false;
-let tiagoRespondeuMensagem = false;
-let resultadoMensagemMostrado = false;
-let mensagemArthurAtiva = false;
-let imagemCelularGrupoAtual = null;
 
 /* TAMANHOS */
 const TAMANHO_TIAGO_PEQUENO = { largura: 100, altura: 185 };
@@ -477,7 +659,6 @@ const areaInformatica = {
 
   chaoY: 680,
   inicioX: 170,
-  portaX: 105,
 
   meninoFalsoX: 760,
   professorInicioX: 40,
@@ -580,6 +761,108 @@ const meninoFalso = {
   andando: false
 };
 
+
+/* CONTROLES MOBILE */
+function atualizarModoMobile() {
+  const ehTelaPequena = window.innerWidth <= 900 || window.innerHeight <= 520;
+  const ehTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  document.body.classList.toggle('modoMobile', ehTelaPequena || ehTouch);
+}
+
+function apertarTeclaVirtual(tecla) {
+  const key = tecla === 'space' ? ' ' : tecla;
+  window.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+}
+
+function soltarTeclaVirtual(tecla) {
+  const key = tecla === 'space' ? ' ' : tecla;
+  window.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true }));
+}
+
+function iniciarSegurarBotaoMobile(botao, tecla) {
+  botao.classList.add('ativo');
+  teclas[tecla] = true;
+}
+
+function pararSegurarBotaoMobile(botao, tecla) {
+  botao.classList.remove('ativo');
+  teclas[tecla] = false;
+}
+
+function tocarBotaoMobile(botao, tecla) {
+  botao.classList.add('ativo');
+
+  if (tecla === 'w') {
+    apertarTeclaVirtual('w');
+    setTimeout(() => soltarTeclaVirtual('w'), 80);
+  } else {
+    apertarTeclaVirtual(tecla);
+  }
+
+  setTimeout(() => botao.classList.remove('ativo'), 120);
+}
+
+function configurarControlesMobile() {
+  if (!controlesMobile) return;
+
+  controlesMobile.addEventListener('contextmenu', (evento) => {
+    evento.preventDefault();
+  });
+
+  document.querySelectorAll('[data-segurar]').forEach(botao => {
+    const tecla = botao.dataset.segurar;
+
+    const iniciar = (evento) => {
+      evento.preventDefault();
+      iniciarSegurarBotaoMobile(botao, tecla);
+    };
+
+    const parar = (evento) => {
+      evento.preventDefault();
+      pararSegurarBotaoMobile(botao, tecla);
+    };
+
+    botao.addEventListener('touchstart', iniciar, { passive: false });
+    botao.addEventListener('touchend', parar, { passive: false });
+    botao.addEventListener('touchcancel', parar, { passive: false });
+    botao.addEventListener('mousedown', iniciar);
+    botao.addEventListener('mouseup', parar);
+    botao.addEventListener('mouseleave', parar);
+  });
+
+  document.querySelectorAll('[data-toque]').forEach(botao => {
+    const tecla = botao.dataset.toque;
+
+    const tocar = (evento) => {
+      evento.preventDefault();
+      tocarBotaoMobile(botao, tecla);
+    };
+
+    botao.addEventListener('touchstart', tocar, { passive: false });
+    botao.addEventListener('mousedown', tocar);
+  });
+
+  window.addEventListener('blur', () => {
+    teclas['a'] = false;
+    teclas['d'] = false;
+    document.querySelectorAll('.botaoMobile.ativo').forEach(botao => {
+      botao.classList.remove('ativo');
+    });
+  });
+
+  window.addEventListener('resize', atualizarModoMobile);
+  window.addEventListener('orientationchange', atualizarModoMobile);
+  atualizarModoMobile();
+}
+
+document.addEventListener('touchmove', (evento) => {
+  if (document.body.classList.contains('modoMobile')) {
+    evento.preventDefault();
+  }
+}, { passive: false });
+
+configurarControlesMobile();
+
 /* MOUSE NA TELA INICIAL */
 function pegarPosicaoMouseNoCanvas(evento) {
   const rect = tela.getBoundingClientRect();
@@ -653,17 +936,6 @@ window.addEventListener('keydown', (evento) => {
     if (tecla === 'enter' || evento.key === ' ') {
       iniciarJogoDeVerdade();
     }
-    return;
-  }
-
-  if (escolhaMensagemAtiva) {
-    if (tecla === '1') escolherRespostaMensagem(1);
-    if (tecla === '2') escolherRespostaMensagem(2);
-    return;
-  }
-
-  if (podeAbrirCelular && tecla === 'c') {
-    abrirCelularComTeclaC();
     return;
   }
 
@@ -810,20 +1082,6 @@ function reiniciarJogo() {
   professorNaSala = false;
   professorAndando = false;
   aulaInformaticaFinalizada = false;
-  saidaInformaticaLiberada = false;
-  professorSaiuInformatica = false;
-  arthurSaiuInformatica = false;
-
-  cenaMensagemCelular = 'inativo';
-  notificacaoCelularAtiva = false;
-  tempoNotificacaoCelular = 0;
-  podeAbrirCelular = false;
-  celularAberto = false;
-  escolhaMensagemAtiva = false;
-  tiagoRespondeuMensagem = false;
-  resultadoMensagemMostrado = false;
-  mensagemArthurAtiva = false;
-  imagemCelularGrupoAtual = null;
 
   meninaCadeirantePatio.x = areaPatio.meninaCadeiranteX;
   meninaCadeirantePatio.y = areaPatio.meninaCadeiranteY;
@@ -991,9 +1249,6 @@ function irParaInformatica() {
   professorNaSala = false;
   professorAndando = false;
   aulaInformaticaFinalizada = false;
-  saidaInformaticaLiberada = false;
-  professorSaiuInformatica = false;
-  arthurSaiuInformatica = false;
 
   tiagoSentado = false;
 
@@ -1020,7 +1275,7 @@ function irParaInformatica() {
     abrirDialogo(
       [
         {
-          nome: 'Arthur',
+          nome: 'Menino falso',
           texto: 'Pega o celular também, ninguém vai perceber.'
         }
       ],
@@ -1067,7 +1322,7 @@ function iniciarIntervalo() {
     abrirDialogo(
       [
         {
-          nome: 'Juliana',
+          nome: 'Menina',
           texto: 'Deu a hora do intervalo!'
         },
         {
@@ -1170,16 +1425,6 @@ function interagir() {
   }
 
   if (
-    fase === 'informatica' &&
-    saidaInformaticaLiberada &&
-    estaPerto(tiago.x + tiago.largura / 2, areaInformatica.portaX, 100) &&
-    tiago.noChao
-  ) {
-    sairDaSalaInformatica();
-    return;
-  }
-
-  if (
     fase === 'patio' &&
     cenaPatio === 'livre' &&
     estaPerto(tiago.x + tiago.largura / 2, areaPatio.meninoFalsoX + 100, 150) &&
@@ -1198,7 +1443,6 @@ function abrirDialogo(sequencia, aoFinal = null) {
   escolhaBananaAtiva = false;
   escolhaCelularAtiva = false;
   escolhaProfessorAtiva = false;
-  escolhaMensagemAtiva = false;
   sequenciaDialogo = sequencia;
   indiceDialogo = 0;
   callbackFimDialogo = aoFinal;
@@ -1245,7 +1489,7 @@ function abrirEscolhaPrimeiraSituacao() {
 
   opcoesDialogo.style.display = 'block';
   opcoesDialogo.innerHTML =
-    '1 - Zoar o Alexandre <br>' +
+    '1 - Zoar o menino de óculos <br>' +
     '2 - Ficar quieto <br>' +
     '3 - Dizer que isso não é engraçado';
 
@@ -1265,7 +1509,7 @@ function escolherPrimeiraSituacao(opcao) {
     abrirDialogo(
       [
         { nome: 'Tiago', texto: 'Verdade né... ele é mó esquisito kkkkk.' },
-        { nome: 'Arthur', texto: 'Sabia que você ia concordar, haha.' }
+        { nome: 'Menino falso', texto: 'Sabia que você ia concordar, haha.' }
       ],
       () => {
         meninoFalsoVoltarParaLugar();
@@ -1279,7 +1523,7 @@ function escolherPrimeiraSituacao(opcao) {
     abrirDialogo(
       [
         { nome: 'Tiago', texto: '...' },
-        { nome: 'Arthur', texto: 'Ué, ficou quieto?' }
+        { nome: 'Menino falso', texto: 'Ué, ficou quieto?' }
       ],
       () => {
         meninoFalsoVoltarParaLugar();
@@ -1293,7 +1537,7 @@ function escolherPrimeiraSituacao(opcao) {
     abrirDialogo(
       [
         { nome: 'Tiago', texto: 'Isso não é engraçado. Você não devia zoar ele.' },
-        { nome: 'Arthur', texto: 'Tá bom, tá bom... calma aí.' }
+        { nome: 'Menino falso', texto: 'Tá bom, tá bom... calma aí.' }
       ],
       () => {
         meninoFalsoVoltarParaLugar();
@@ -1308,7 +1552,7 @@ function abrirDialogoPatio() {
   abrirDialogo(
     [
       {
-        nome: 'Arthur',
+        nome: 'Menino falso',
         texto: 'Olha, a menina hot wheels hahaha.'
       }
     ],
@@ -1347,7 +1591,7 @@ function escolherSituacaoPatio(opcao) {
     abrirDialogo(
       [
         { nome: 'Tiago', texto: 'Kkkkk...' },
-        { nome: 'Jaqueline', texto: 'Isso não tem graça.' }
+        { nome: 'Menina cadeirante', texto: 'Isso não tem graça.' }
       ],
       () => {
         iniciarSaidaDaMeninaCadeirante();
@@ -1361,7 +1605,7 @@ function escolherSituacaoPatio(opcao) {
     abrirDialogo(
       [
         { nome: 'Tiago', texto: '...' },
-        { nome: 'Arthur', texto: 'Ué, não vai rir?' }
+        { nome: 'Menino falso', texto: 'Ué, não vai rir?' }
       ],
       () => {
         iniciarSaidaDaMeninaCadeirante();
@@ -1389,7 +1633,7 @@ function iniciarAlarmeDoPatio() {
 
     abrirDialogo(
       [
-        { nome: 'Arthur', texto: 'Vamos mano.' }
+        { nome: 'Menino falso', texto: 'Vamos mano.' }
       ],
       () => {
         aguardandoAlarmePatio = false;
@@ -1447,7 +1691,7 @@ function escolherSituacaoBanana(opcao) {
     abrirDialogo(
       [
         { nome: 'Tiago', texto: 'Não. Isso pode machucar alguém.' },
-        { nome: 'Arthur', texto: 'Então deixa que eu faço.' }
+        { nome: 'Menino falso', texto: 'Então deixa que eu faço.' }
       ],
       () => {
         cenaCorredorBanana = 'falso_colocando';
@@ -1475,7 +1719,7 @@ function abrirConsequenciaBanana() {
   if (tiagoPegouBanana) {
     abrirDialogo(
       [
-        { nome: 'Alexandre', texto: 'Ai! Eu caí por causa dessa casca!' },
+        { nome: 'Menino de óculos', texto: 'Ai! Eu caí por causa dessa casca!' },
         { nome: 'Tiago', texto: 'Nossa... fui eu que coloquei. Eu não devia ter feito isso.' }
       ],
       () => {
@@ -1485,8 +1729,8 @@ function abrirConsequenciaBanana() {
   } else {
     abrirDialogo(
       [
-        { nome: 'Alexandre', texto: 'Ai! Quem colocou isso aqui?' },
-        { nome: 'Tiago', texto: 'Eu avisei que isso era errado. Ele se machucou por sua causa' }
+        { nome: 'Menino de óculos', texto: 'Ai! Quem colocou isso aqui?' },
+        { nome: 'Tiago', texto: 'Eu avisei que isso era errado. Alguém podia se machucar.' }
       ],
       () => {
         iniciarTransicaoParaInformatica();
@@ -1561,7 +1805,7 @@ function escolherSituacaoCelular(opcao) {
     abrirDialogo(
       [
         { nome: 'Tiago', texto: 'Não vou mexer. É aula de informática, não hora de celular.' },
-        { nome: 'Arthur', texto: 'Nossa, que certinho...' }
+        { nome: 'Menino falso', texto: 'Nossa, que certinho...' }
       ],
       () => {
         iniciarEntradaProfessorInformatica('bronca_falso');
@@ -1613,7 +1857,8 @@ function escolherRespostaProfessor(opcao) {
         { nome: 'Professor', texto: 'Certo. Agora prestem atenção na aula.' }
       ],
       () => {
-        iniciarSaidaDaSalaInformatica();
+        aulaInformaticaFinalizada = true;
+        cenaInformatica = 'finalizado';
       }
     );
   }
@@ -1627,135 +1872,12 @@ function escolherRespostaProfessor(opcao) {
         { nome: 'Professor', texto: 'Então vai dar ruim para vocês depois.' }
       ],
       () => {
-        iniciarSaidaDaSalaInformatica();
+        cenaInformatica = 'professor_saindo';
+        professorAndando = true;
+        professorInformatica.direcao = -1;
       }
     );
   }
-}
-
-function iniciarSaidaDaSalaInformatica() {
-  escolhaCelularAtiva = false;
-  escolhaProfessorAtiva = false;
-  tiagoMexeuNoCelular = false;
-  meninoFalsoMexendoCelular = false;
-
-  cenaInformatica = 'saindo_da_sala';
-  aulaInformaticaFinalizada = false;
-  saidaInformaticaLiberada = false;
-  professorSaiuInformatica = false;
-  arthurSaiuInformatica = false;
-
-  professorNaSala = true;
-  professorAndando = true;
-  professorInformatica.direcao = -1;
-
-  meninoFalsoInformatica.direcao = -1;
-}
-
-function sairDaSalaInformatica() {
-  fase = 'corredor';
-  fecharDialogo();
-
-  tiagoSentado = false;
-  tiago.largura = TAMANHO_TIAGO_PEQUENO.largura;
-  tiago.altura = TAMANHO_TIAGO_PEQUENO.altura;
-  tiago.x = areaCorredor.informaticaX + 95;
-  tiago.y = areaCorredor.chaoY - tiago.altura;
-  tiago.velocidadeY = 0;
-  tiago.noChao = true;
-  tiago.direcao = 1;
-
-  entradaInformaticaLiberada = false;
-  cenaCorredorInformatica = 'inativo';
-  corredorIndoParaInformatica = false;
-  alunosCorredorSumiram = true;
-
-  iniciarNotificacaoCelular();
-}
-
-function iniciarNotificacaoCelular() {
-  cenaMensagemCelular = 'notificacao';
-  notificacaoCelularAtiva = true;
-  tempoNotificacaoCelular = 180;
-  podeAbrirCelular = true;
-  celularAberto = false;
-  escolhaMensagemAtiva = false;
-  tiagoRespondeuMensagem = false;
-  resultadoMensagemMostrado = false;
-  mensagemArthurAtiva = true;
-  imagemCelularGrupoAtual = imagemCelularGrupoBase;
-}
-
-function abrirCelularComTeclaC() {
-  if (!podeAbrirCelular || celularAberto) return;
-
-  celularAberto = true;
-  podeAbrirCelular = false;
-  notificacaoCelularAtiva = false;
-  cenaMensagemCelular = 'celular_aberto';
-  imagemCelularGrupoAtual = imagemCelularGrupoBase;
-
-  abrirEscolhaMensagem();
-}
-
-function abrirEscolhaMensagem() {
-  dialogoAberto = false;
-  escolhaMensagemAtiva = true;
-
-  caixaDialogo.style.display = 'block';
-  nomeFalante.textContent = 'Tiago';
-  textoDialogo.textContent = 'O que eu respondo no grupo?';
-
-  opcoesDialogo.style.display = 'block';
-  opcoesDialogo.innerHTML =
-    '1 - Zoar também <br>' +
-    '2 - Não zoar / defender';
-
-  dicaDialogo.textContent = 'Escolha apertando 1 ou 2';
-}
-
-function escolherRespostaMensagem(opcao) {
-  if (!escolhaMensagemAtiva) return;
-
-  escolhaMensagemAtiva = false;
-  opcoesDialogo.style.display = 'none';
-  totalEscolhas++;
-
-  if (opcao === 1) {
-    escolhasRuins++;
-    imagemCelularGrupoAtual = imagemCelularGrupoZoando;
-    tiagoRespondeuMensagem = true;
-    resultadoMensagemMostrado = true;
-    textoDialogo.textContent = 'Tiago respondeu: "Estranho demais, kkkk"';
-  }
-
-  if (opcao === 2) {
-    escolhasBoas++;
-    imagemCelularGrupoAtual = imagemCelularGrupoDefendendo;
-    tiagoRespondeuMensagem = true;
-    resultadoMensagemMostrado = true;
-    textoDialogo.textContent = 'Tiago respondeu defendendo Alexandre.';
-  }
-
-  nomeFalante.textContent = 'Grupo da Escola';
-  dicaDialogo.textContent = 'A mensagem apareceu no celular...';
-
-  setTimeout(() => {
-    if (fase !== 'corredor' || cenaMensagemCelular !== 'celular_aberto') return;
-    guardarCelular();
-  }, 2200);
-}
-
-function guardarCelular() {
-  celularAberto = false;
-  escolhaMensagemAtiva = false;
-  podeAbrirCelular = false;
-  notificacaoCelularAtiva = false;
-  mensagemArthurAtiva = false;
-  resultadoMensagemMostrado = false;
-  cenaMensagemCelular = 'finalizado';
-  imagemCelularGrupoAtual = null;
-  fecharDialogo();
 }
 
 function fecharDialogo() {
@@ -1765,7 +1887,6 @@ function fecharDialogo() {
   escolhaBananaAtiva = false;
   escolhaCelularAtiva = false;
   escolhaProfessorAtiva = false;
-  escolhaMensagemAtiva = false;
 
   caixaDialogo.style.display = 'none';
   nomeFalante.textContent = '';
@@ -1790,13 +1911,7 @@ function atualizarPainel() {
       '🚪 Vá até a porta e aperte E<br>' +
       `✅ Boas: ${escolhasBoas} | ❌ Ruins: ${escolhasRuins}`;
   } else if (fase === 'corredor') {
-    if (cenaMensagemCelular !== 'inativo' && cenaMensagemCelular !== 'finalizado') {
-      painel.innerHTML =
-        '🏫 Corredor da escola<br>' +
-        '📱 Nova mensagem no celular<br>' +
-        '⌨️ Aperte C para abrir o celular<br>' +
-        `✅ Boas: ${escolhasBoas} | ❌ Ruins: ${escolhasRuins}`;
-    } else if (entradaInformaticaLiberada) {
+    if (entradaInformaticaLiberada) {
       painel.innerHTML =
         '🏫 Corredor da escola<br>' +
         '💻 Agora é aula de informática<br>' +
@@ -1848,7 +1963,7 @@ function atualizarPainel() {
       painel.innerHTML =
         '📚 Sala 103<br>' +
         'Tiago precisa escolher o que fazer.<br>' +
-        '1️⃣ Zoar o Alexandre<br>' +
+        '1️⃣ Zoar o menino de óculos<br>' +
         '2️⃣ Ficar quieto<br>' +
         '3️⃣ Dizer que isso não é engraçado<br>' +
         `✅ Boas: ${escolhasBoas} | ❌ Ruins: ${escolhasRuins}`;
@@ -1881,22 +1996,11 @@ function atualizarPainel() {
         '⛹️ Pátio<br>' +
         '🎮 ← → / A D para andar<br>' +
         '⬆️ W ou Espaço para pular<br>' +
-        '🎯 Vá até o Arthur e aperte E<br>' +
+        '🎯 Vá até o menino falso e aperte E<br>' +
         `✅ Boas: ${escolhasBoas} | ❌ Ruins: ${escolhasRuins}`;
     }
   } else if (fase === 'informatica') {
-    if (saidaInformaticaLiberada) {
-      painel.innerHTML =
-        '💻 Sala de informática<br>' +
-        '🚪 Aula acabou. Vá até a porta e aperte E<br>' +
-        '🎮 ← → / A D para andar<br>' +
-        `✅ Boas: ${escolhasBoas} | ❌ Ruins: ${escolhasRuins}`;
-    } else if (cenaInformatica === 'saindo_da_sala') {
-      painel.innerHTML =
-        '💻 Sala de informática<br>' +
-        '🚪 Professor e Arthur estão saindo<br>' +
-        `✅ Boas: ${escolhasBoas} | ❌ Ruins: ${escolhasRuins}`;
-    } else if (escolhaCelularAtiva) {
+    if (escolhaCelularAtiva) {
       painel.innerHTML =
         '💻 Sala de informática<br>' +
         'Tiago precisa escolher o que fazer.<br>' +
@@ -1962,13 +2066,7 @@ function atualizarMovimentoTiago() {
     !entradaInformaticaLiberada
   ) return;
 
-  if (fase === 'informatica' && cenaInformatica !== 'porta_liberada') return;
-
-  if (
-    fase === 'corredor' &&
-    cenaMensagemCelular !== 'inativo' &&
-    cenaMensagemCelular !== 'finalizado'
-  ) return;
+  if (fase === 'informatica' && cenaInformatica !== 'finalizado') return;
 
   if (
     dialogoAberto ||
@@ -2020,8 +2118,8 @@ function atualizarCenaSala() {
       abrirDialogo(
         [
           {
-            nome: 'Arthur',
-            texto: 'Olha aquele menino de oculos... que estranho né?'
+            nome: 'Menino falso',
+            texto: 'Olha aquele menino de óculos... que estranho.'
           }
         ],
         () => {
@@ -2085,7 +2183,7 @@ function atualizarCenaCorredorBanana() {
       abrirDialogo(
         [
           {
-            nome: 'Arthur',
+            nome: 'Menino falso',
             texto: 'Pega essa casca e coloca no chão. Vai ser engraçado.'
           }
         ],
@@ -2180,7 +2278,7 @@ function atualizarCenaCorredorInformatica() {
       abrirDialogo(
         [
           {
-            nome: 'Juliana',
+            nome: 'Menina loira',
             texto: 'Vamos, agora é aula de informática.'
           }
         ],
@@ -2233,13 +2331,14 @@ function atualizarCenaInformatica() {
               texto: 'Guarda esse celular agora.'
             },
             {
-              nome: 'Arthur',
+              nome: 'Menino falso',
               texto: 'Tá bom.'
             }
           ],
           () => {
             meninoFalsoMexendoCelular = false;
-            iniciarSaidaDaSalaInformatica();
+            aulaInformaticaFinalizada = true;
+            cenaInformatica = 'finalizado';
           }
         );
       }
@@ -2252,37 +2351,8 @@ function atualizarCenaInformatica() {
     if (professorInformatica.x <= -220) {
       professorNaSala = false;
       professorAndando = false;
-      iniciarSaidaDaSalaInformatica();
-    }
-  }
-
-  if (cenaInformatica === 'saindo_da_sala') {
-    if (!professorSaiuInformatica && professorNaSala) {
-      professorInformatica.x -= professorInformatica.velocidade;
-      professorInformatica.direcao = -1;
-
-      if (professorInformatica.x <= -240) {
-        professorSaiuInformatica = true;
-        professorNaSala = false;
-        professorAndando = false;
-      }
-    } else {
-      professorSaiuInformatica = true;
-    }
-
-    if (!arthurSaiuInformatica) {
-      meninoFalsoInformatica.x -= meninoFalsoInformatica.velocidade;
-      meninoFalsoInformatica.direcao = -1;
-
-      if (meninoFalsoInformatica.x <= -220) {
-        arthurSaiuInformatica = true;
-      }
-    }
-
-    if (professorSaiuInformatica && arthurSaiuInformatica) {
       aulaInformaticaFinalizada = true;
-      saidaInformaticaLiberada = true;
-      cenaInformatica = 'porta_liberada';
+      cenaInformatica = 'finalizado';
     }
   }
 }
@@ -2303,14 +2373,6 @@ function atualizarJogo() {
 
     if (tempoAvisoAlarme <= 0) {
       mostrarAvisoAlarme = false;
-    }
-  }
-
-  if (notificacaoCelularAtiva) {
-    tempoNotificacaoCelular--;
-
-    if (tempoNotificacaoCelular <= 0) {
-      notificacaoCelularAtiva = false;
     }
   }
 
@@ -2643,58 +2705,6 @@ function desenharAvisoAlarmeTocando() {
   contexto.restore();
 }
 
-function desenharNotificacaoCelular() {
-  if (!notificacaoCelularAtiva && !podeAbrirCelular) return;
-
-  const largura = 680;
-  const altura = 70;
-  const x = (LARGURA_VISAO - largura) / 2;
-  const y = 35;
-
-  contexto.save();
-  contexto.fillStyle = 'rgba(0,0,0,0.78)';
-  contexto.fillRect(x, y, largura, altura);
-  contexto.strokeStyle = 'rgba(90,220,255,0.85)';
-  contexto.lineWidth = 3;
-  contexto.strokeRect(x, y, largura, altura);
-  contexto.fillStyle = '#e8fbff';
-  contexto.font = 'bold 28px Arial';
-  contexto.textAlign = 'center';
-  contexto.fillText('📱 Tiago recebeu uma nova mensagem no celular', LARGURA_VISAO / 2, y + 44);
-
-  if (podeAbrirCelular && !celularAberto) {
-    contexto.font = 'bold 18px Arial';
-    contexto.fillStyle = '#ffd966';
-    contexto.fillText('Aperte C para abrir', LARGURA_VISAO / 2, y + 92);
-  }
-
-  contexto.textAlign = 'start';
-  contexto.restore();
-}
-
-function desenharOverlayCelular() {
-  if (!celularAberto || !imagemCelularGrupoAtual) return;
-
-  contexto.save();
-  contexto.fillStyle = 'rgba(0,0,0,0.35)';
-  contexto.fillRect(0, 0, LARGURA_VISAO, ALTURA_VISAO);
-
-  const larguraCelular = 340;
-  const alturaCelular = 520;
-  const x = (LARGURA_VISAO - larguraCelular) / 2;
-  const y = 70;
-
-  contexto.drawImage(
-    imagemCelularGrupoAtual,
-    x,
-    y,
-    larguraCelular,
-    alturaCelular
-  );
-
-  contexto.restore();
-}
-
 function desenharForaDaEscola() {
   cameraX = pegarCameraX(areaFora.larguraMapa);
 
@@ -2926,8 +2936,6 @@ function desenharCorredor() {
       podeInteragir ? 'Aperte E' : 'Pátio'
     );
   }
-  desenharNotificacaoCelular();
-  desenharOverlayCelular();
 }
 
 function desenharAlunosDaSala() {
@@ -3126,7 +3134,7 @@ function desenharPatio() {
     desenharAviso(
       areaPatio.meninoFalsoX + 100 - cameraX,
       areaPatio.chaoY - 190,
-      podeInteragir ? 'Aperte E' : 'Arthur'
+      podeInteragir ? 'Aperte E' : 'Menino falso'
     );
   }
 
@@ -3156,22 +3164,16 @@ function desenharInformatica() {
     areaInformatica.imagemAltura
   );
 
-  if (!arthurSaiuInformatica) {
-    const imagemArthurInformatica = cenaInformatica === 'saindo_da_sala'
-      ? imagemMeninoFalsoAndando
-      : imagemMeninoFalsoParado;
+  desenharImagemVirada(
+    imagemMeninoFalsoParado,
+    meninoFalsoInformatica.x,
+    meninoFalsoInformatica.y,
+    meninoFalsoInformatica.largura,
+    meninoFalsoInformatica.altura,
+    meninoFalsoInformatica.direcao
+  );
 
-    desenharImagemVirada(
-      imagemArthurInformatica,
-      meninoFalsoInformatica.x,
-      meninoFalsoInformatica.y,
-      meninoFalsoInformatica.largura,
-      meninoFalsoInformatica.altura,
-      meninoFalsoInformatica.direcao
-    );
-  }
-
-  if (meninoFalsoMexendoCelular && !arthurSaiuInformatica) {
+  if (meninoFalsoMexendoCelular) {
     desenharImagem(
       imagemCelular,
       meninoFalsoInformatica.x + 95,
@@ -3205,17 +3207,6 @@ function desenharInformatica() {
       professorInformatica.largura,
       professorInformatica.altura,
       professorInformatica.direcao
-    );
-  }
-
-  if (saidaInformaticaLiberada) {
-    const centroTiago = tiago.x + tiago.largura / 2;
-    const pertoPorta = estaPerto(centroTiago, areaInformatica.portaX, 100) && tiago.noChao;
-
-    desenharAviso(
-      areaInformatica.portaX - cameraX,
-      areaInformatica.chaoY - 200,
-      pertoPorta ? 'Aperte E' : 'Saída'
     );
   }
 }
@@ -3288,10 +3279,7 @@ const imagensDoJogo = [
 
   imagemProfessorParado,
   imagemProfessorAndando,
-  imagemCelular,
-  imagemCelularGrupoBase,
-  imagemCelularGrupoZoando,
-  imagemCelularGrupoDefendendo
+  imagemCelular
 ];
 
 imagensDoJogo.forEach(imagem => {
