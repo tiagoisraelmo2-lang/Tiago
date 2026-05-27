@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Dia dos Namorados</title>
+
+  <style>
+    /* ==============================
+       CONFIGURAÇÃO GERAL DO SITE
+       ============================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(180deg, #fff5f8, #ffe6ee, #fff);
+      color: #4b1f2f;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --rosa-claro: #ffe1eb;
+      --rosa: #ff6fae;
+      --rosa-forte: #ff3f8f;
+      --vermelho: #e63950;
+      --branco: #ffffff;
+      --texto: #4b1f2f;
+      --sombra: 0 8px 25px rgba(230, 57, 80, 0.18);
+      --borda: 22px;
+    }
+
+    section {
+      padding: 70px 18px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      color: var(--vermelho);
+    }
+
+    .subtitulo {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 35px;
+      color: #7a3d4d;
+      font-size: 1rem;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .botao-principal {
+      background: linear-gradient(135deg, var(--rosa-forte), var(--vermelho));
+      color: white;
+      padding: 15px 25px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: var(--sombra);
+      transition: 0.3s;
+    }
+
+    .botao-principal:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(230, 57, 80, 0.28);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: var(--borda);
+      box-shadow: var(--sombra);
+      padding: 20px;
+      border: 1px solid rgba(255, 111, 174, 0.25);
+      backdrop-filter: blur(8px);
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .tag-editar {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--rosa-forte);
+      background: #fff0f5;
+      padding: 5px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       MENU INFERIOR PARA CELULAR
+       ============================== */
+
+    .menu-flutuante {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 111, 174, 0.3);
+      box-shadow: var(--sombra);
+      border-radius: 999px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-flutuante a {
+      text-decoration: none;
+      color: var(--vermelho);
+      font-size: 1.2rem;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+
+    .menu-flutuante a:hover {
+      background: var(--rosa-claro);
+      transform: scale(1.1);
+    }
+
+    /* ==============================
+       TELA INICIAL
+       ============================== */
+
+    .inicio {
+      min-height: 100vh;
+      max-width: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, #ffd1e2, transparent 35%),
+        radial-gradient(circle at bottom right, #ffb6cf, transparent 35%),
+        linear-gradient(180deg, #fff7fa, #ffe3ed);
+    }
+
+    .conteudo-inicio {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 30px;
+      animation: aparecer 1s ease;
+    }
+
+    .selo {
+      display: inline-block;
+      background: white;
+      color: var(--vermelho);
+      padding: 8px 16px;
+      border-radius: 999px;
+      box-shadow: var(--sombra);
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .inicio h1 {
+      font-size: clamp(2.2rem, 8vw, 4.5rem);
+      color: var(--vermelho);
+      margin-bottom: 15px;
+    }
+
+    .nome-namorada {
+      display: block;
+      color: var(--rosa-forte);
+      margin-top: 5px;
+    }
+
+    .inicio p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 28px;
+      color: #693143;
+    }
+
+    .coracao-flutuante {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(255, 63, 143, 0.45);
+      font-size: 25px;
+      animation: subirCoracao 8s linear infinite;
+    }
+
+    @keyframes subirCoracao {
+      0% {
+        transform: translateY(0) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-110vh) scale(1.6) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==============================
+       GALERIA
+       ============================== */
+
+    .grade-fotos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 18px;
+    }
+
+    .foto-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .foto-placeholder {
+      height: 180px;
+      background: linear-gradient(135deg, #ffd6e5, #fff, #ffc2d8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--vermelho);
+      font-weight: bold;
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    .foto-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .legenda-foto {
+      padding: 15px;
+      text-align: center;
+      color: #6b3043;
+      font-size: 0.95rem;
+    }
+
+    /* ==============================
+       LINHA DO TEMPO
+       ============================== */
+
+    .timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(var(--rosa), var(--vermelho));
+      border-radius: 999px;
+    }
+
+    .timeline-card {
+      margin-left: 45px;
+      position: relative;
+    }
+
+    .timeline-card::before {
+      content: "❤";
+      position: absolute;
+      left: -42px;
+      top: 22px;
+      background: white;
+      color: var(--vermelho);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      box-shadow: var(--sombra);
+    }
+
+    .data {
+      color: var(--rosa-forte);
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .imagem-opcional {
+      height: 120px;
+      background: #ffe7f0;
+      border-radius: 16px;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b84561;
+      font-size: 0.9rem;
+    }
+
+    /* ==============================
+       20 COISAS QUE AMO
+       ============================== */
+
+    .grid-amor {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 12px;
+      max-width: 760px;
+      margin: auto;
+    }
+
+    .botao-amor {
+      background: white;
+      border: 2px solid #ffc4d8;
+      color: var(--vermelho);
+      border-radius: 18px;
+      height: 70px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: var(--sombra);
+      transition: 0.3s;
+    }
+
+    .botao-amor:hover {
+      background: var(--rosa-claro);
+      transform: scale(1.05);
+    }
+
+    .mensagem-amor {
+      max-width: 700px;
+      margin: 25px auto 0;
+      text-align: center;
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--sombra);
+      color: var(--vermelho);
+      font-size: 1.2rem;
+      font-weight: bold;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==============================
+       VALES DO AMOR
+       ============================== */
+
+    .grid-vales {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .vale {
+      background:
+        radial-gradient(circle at left, transparent 18px, white 19px),
+        radial-gradient(circle at right, transparent 18px, white 19px);
+      background-color: white;
+      border: 2px dashed #ff9cbd;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--sombra);
+      position: relative;
+    }
+
+    .vale h3 {
+      color: var(--vermelho);
+      margin-bottom: 8px;
+    }
+
+    .vale p {
+      color: #74364b;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+    }
+
+    .vale button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 999px;
+      background: var(--rosa-forte);
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .vale button:hover {
+      background: var(--vermelho);
+      transform: scale(1.03);
+    }
+
+    /* ==============================
+       QUIZ
+       ============================== */
+
+    .quiz-box {
+      max-width: 760px;
+      margin: auto;
+    }
+
+    .quiz-pergunta {
+      font-size: 1.3rem;
+      color: var(--vermelho);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .quiz-opcoes {
+      display: grid;
+      gap: 12px;
+    }
+
+    .quiz-opcoes button {
+      background: white;
+      padding: 15px;
+      border-radius: 16px;
+      color: #74364b;
+      font-size: 1rem;
+      box-shadow: var(--sombra);
+      transition: 0.3s;
+      border: 1px solid #ffd1e2;
+    }
+
+    .quiz-opcoes button:hover {
+      background: #fff0f5;
+      transform: translateY(-2px);
+    }
+
+    .quiz-resultado {
+      text-align: center;
+      margin-top: 20px;
+      color: var(--vermelho);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* ==============================
+       JOGUINHO DOS CORAÇÕES
+       ============================== */
+
+    .jogo-container {
+      max-width: 760px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .painel-jogo {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .info-jogo {
+      background: white;
+      padding: 12px 18px;
+      border-radius: 999px;
+      box-shadow: var(--sombra);
+      font-weight: bold;
+      color: var(--vermelho);
+    }
+
+    .area-jogo {
+      height: 330px;
+      background: linear-gradient(160deg, #fff, #ffe2ec);
+      border-radius: 26px;
+      box-shadow: var(--sombra);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #ffd0e0;
+      margin-top: 18px;
+    }
+
+    .coracao-jogo {
+      position: absolute;
+      font-size: 2.2rem;
+      cursor: pointer;
+      user-select: none;
+      animation: pulsar 0.8s infinite alternate;
+    }
+
+    @keyframes pulsar {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.18);
+      }
+    }
+
+    .mensagem-final-jogo {
+      margin-top: 18px;
+      color: var(--vermelho);
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       LUGARES E MEMÓRIAS
+       ============================== */
+
+    .grid-memorias {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .memoria-img {
+      height: 150px;
+      background: linear-gradient(135deg, #ffd7e5, #fff);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--vermelho);
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .memoria-data {
+      color: var(--rosa-forte);
+      font-size: 0.85rem;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       CARTINHA
+       ============================== */
+
+    .carta-area {
+      max-width: 750px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .envelope {
+      background: linear-gradient(135deg, #ff9cbd, #e63950);
+      color: white;
+      padding: 35px 20px;
+      border-radius: 28px;
+      box-shadow: var(--sombra);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      left: 0;
+      width: 100%;
+      height: 130px;
+      background: rgba(255, 255, 255, 0.25);
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+    }
+
+    .carta {
+      display: none;
+      background: #fffdf8;
+      color: #5c2b3c;
+      padding: 25px;
+      border-radius: 20px;
+      margin-top: 20px;
+      box-shadow: var(--sombra);
+      text-align: left;
+      line-height: 1.7;
+      animation: abrirCarta 0.6s ease;
+      border: 1px solid #ffd4df;
+    }
+
+    .carta.aberta {
+      display: block;
+    }
+
+    @keyframes abrirCarta {
+      from {
+        opacity: 0;
+        transform: translateY(-15px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* ==============================
+       PLAYLIST
+       ============================== */
+
+    .grid-playlist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .musica-card h3 {
+      color: var(--vermelho);
+      margin-bottom: 8px;
+    }
+
+    .musica-card a {
+      display: inline-block;
+      margin-top: 15px;
+      color: white;
+      background: var(--rosa-forte);
+      padding: 10px 15px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    /* ==============================
+       SURPRESA FINAL
+       ============================== */
+
+    .surpresa {
+      text-align: center;
+      padding-bottom: 110px;
+    }
+
+    .mensagem-surpresa {
+      display: none;
+      margin: 25px auto 0;
+      max-width: 700px;
+      background: white;
+      color: var(--vermelho);
+      padding: 30px;
+      border-radius: 28px;
+      box-shadow: var(--sombra);
+      font-size: 1.5rem;
+      font-weight: bold;
+      animation: aparecer 0.7s ease;
+    }
+
+    .mensagem-surpresa.ativa {
+      display: block;
+    }
+
+    /* ==============================
+       POP-UP / MODAL
+       ============================== */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(75, 31, 47, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+
+    .modal.ativo {
+      display: flex;
+    }
+
+    .modal-conteudo {
+      background: white;
+      border-radius: 28px;
+      padding: 30px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      animation: aparecer 0.4s ease;
+    }
+
+    .modal-conteudo h3 {
+      color: var(--vermelho);
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .modal-conteudo p {
+      color: #6b3043;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    /* ==============================
+       ANIMAÇÃO AO ROLAR
+       ============================== */
+
+    .animar {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: 0.7s ease;
+    }
+
+    .animar.visivel {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==============================
+       RESPONSIVIDADE
+       ============================== */
+
+    @media (min-width: 768px) {
+      .timeline::before {
+        left: 50%;
+      }
+
+      .timeline-card {
+        width: calc(50% - 35px);
+        margin-left: 0;
+      }
+
+      .timeline-card:nth-child(odd) {
+        align-self: flex-start;
+      }
+
+      .timeline-card:nth-child(even) {
+        align-self: flex-end;
+      }
+
+      .timeline-card::before {
+        left: auto;
+        right: -53px;
+      }
+
+      .timeline-card:nth-child(even)::before {
+        left: -53px;
+        right: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      section {
+        padding: 55px 15px;
+      }
+
+      h2 {
+        font-size: 1.7rem;
+      }
+
+      .inicio p {
+        font-size: 1rem;
+      }
+
+      .foto-placeholder {
+        height: 150px;
+      }
+
+      .area-jogo {
+        height: 300px;
+      }
+
+      .menu-flutuante a {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==============================
+       MENU RÁPIDO INFERIOR
+       Você pode trocar os emojis se quiser
+       ============================== -->
+  <nav class="menu-flutuante">
+    <a href="#inicio" title="Início">🏠</a>
+    <a href="#galeria" title="Fotos">📷</a>
+    <a href="#amor" title="20 coisas">💖</a>
+    <a href="#vales" title="Vales">🎁</a>
+    <a href="#surpresa" title="Final">✨</a>
+  </nav>
+
+  <!-- ==============================
+       1. TELA INICIAL
+       TROQUE AQUI:
+       - Nome da namorada
+       - Texto inicial
+       ============================== -->
+  <section class="inicio" id="inicio">
+    <div class="conteudo-inicio">
+      <span class="selo">💌 Presente digital</span>
+
+      <h1>
+        Feliz Dia dos Namorados
+        <span class="nome-namorada">Meu amor</span>
+      </h1>
+
+      <p>
+        Esse cantinho foi feito para guardar nossas memórias, nossos momentos,
+        nossas brincadeiras e todo o carinho que existe entre nós.
+      </p>
+
+      <a href="#galeria">
+        <button class="botao-principal">Abrir meu presente ❤️</button>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==============================
+       2. GALERIA DE FOTOS
+       TROQUE AQUI:
+       - Os placeholders por imagens reais
+       - As legendas
+       
+       Exemplo para colocar imagem:
+       Dentro da div foto-placeholder, troque por:
+       <img src="fotos/minha-foto.jpg" style="display:block;">
+       ============================== -->
+  <section id="galeria" class="animar">
+    <h2>Galeria do casal 📷</h2>
+    <p class="subtitulo">
+      Espaço para colocar as fotos mais lindas de vocês dois.
+    </p>
+
+    <div class="grade-fotos">
+      <div class="card foto-card">
+        <div class="foto-placeholder">Foto 1</div>
+        <p class="legenda-foto">Nosso momento especial</p>
+      </div>
+
+      <div class="card foto-card">
+        <div class="foto-placeholder">Foto 2</div>
+        <p class="legenda-foto">Um dia inesquecível</p>
+      </div>
+
+      <div class="card foto-card">
+        <div class="foto-placeholder">Foto 3</div>
+        <p class="legenda-foto">Meu lugar favorito é ao seu lado</p>
+      </div>
+
+      <div class="card foto-card">
+        <div class="foto-placeholder">Foto 4</div>
+        <p class="legenda-foto">Uma memória que eu guardo com carinho</p>
+      </div>
+
+      <div class="card foto-card">
+        <div class="foto-placeholder">Foto 5</div>
+        <p class="legenda-foto">Nós dois sendo nós mesmos</p>
+      </div>
+
+      <div class="card foto-card">
+        <div class="foto-placeholder">Foto 6</div>
+        <p class="legenda-foto">Um pedacinho da nossa história</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       3. LINHA DO TEMPO
+       TROQUE AQUI:
+       - Datas
+       - Títulos
+       - Textos
+       - Fotos opcionais
+       ============================== -->
+  <section id="historia" class="animar">
+    <h2>Nossa história 💞</h2>
+    <p class="subtitulo">
+      Uma linha do tempo para lembrar os momentos mais importantes do casal.
+    </p>
+
+    <div class="timeline">
+      <div class="card timeline-card">
+        <p class="data">00/00/0000</p>
+        <h3>Quando nos conhecemos</h3>
+        <p>Escreva aqui como foi o primeiro contato de vocês.</p>
+        <div class="imagem-opcional">Foto opcional</div>
+      </div>
+
+      <div class="card timeline-card">
+        <p class="data">00/00/0000</p>
+        <h3>Nosso primeiro encontro</h3>
+        <p>Conte aqui como foi esse dia e o que tornou ele especial.</p>
+        <div class="imagem-opcional">Foto opcional</div>
+      </div>
+
+      <div class="card timeline-card">
+        <p class="data">00/00/0000</p>
+        <h3>Nossa primeira foto</h3>
+        <p>Coloque aqui a história por trás da primeira foto de vocês.</p>
+        <div class="imagem-opcional">Foto opcional</div>
+      </div>
+
+      <div class="card timeline-card">
+        <p class="data">00/00/0000</p>
+        <h3>Uma memória engraçada</h3>
+        <p>Escreva algo que sempre faz vocês rirem quando lembram.</p>
+        <div class="imagem-opcional">Foto opcional</div>
+      </div>
+
+      <div class="card timeline-card">
+        <p class="data">00/00/0000</p>
+        <h3>Um dia especial</h3>
+        <p>Conte sobre um dia que ficou marcado no coração.</p>
+        <div class="imagem-opcional">Foto opcional</div>
+      </div>
+
+      <div class="card timeline-card">
+        <p class="data">Hoje e sempre</p>
+        <h3>O motivo de eu te amar cada dia mais</h3>
+        <p>Escreva aqui uma declaração bonita sobre o amor de vocês.</p>
+        <div class="imagem-opcional">Foto opcional</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       4. 20 COISAS QUE AMO EM VOCÊ
+       Os textos ficam no JavaScript, lá no final do código.
+       ============================== -->
+  <section id="amor" class="animar">
+    <h2>20 coisas que amo em você 💖</h2>
+    <p class="subtitulo">
+      Clique nos números para revelar pequenas declarações.
+    </p>
+
+    <div class="grid-amor" id="gridAmor"></div>
+
+    <div class="mensagem-amor" id="mensagemAmor">
+      Escolha um número para revelar uma mensagem ❤️
+    </div>
+  </section>
+
+  <!-- ==============================
+       5. VALES ROMÂNTICOS
+       TROQUE AQUI:
+       - Títulos dos vales
+       - Descrições dos vales
+       ============================== -->
+  <section id="vales" class="animar">
+    <h2>Vales do Amor 🎁</h2>
+    <p class="subtitulo">
+      Cupons especiais para usar quando quiser cobrar carinho.
+    </p>
+
+    <div class="grid-vales">
+      <div class="vale">
+        <h3>Vale de muitos beijinhos</h3>
+        <p>Use quando quiser receber vários beijinhos sem limite.</p>
+        <button onclick="usarVale('Vale de muitos beijinhos')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de massagem no pé</h3>
+        <p>Perfeito para um momento de descanso e carinho.</p>
+        <button onclick="usarVale('Vale de massagem no pé')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de um abraço demorado</h3>
+        <p>Um abraço daqueles que fazem o mundo parar um pouquinho.</p>
+        <button onclick="usarVale('Vale de um abraço demorado')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de escolher o filme</h3>
+        <p>Você escolhe o filme, a série ou o vídeo da vez.</p>
+        <button onclick="usarVale('Vale de escolher o filme')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de um pedido qualquer</h3>
+        <p>Um pedido especial, feito com carinho e amor.</p>
+        <button onclick="usarVale('Vale de um pedido qualquer')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de café da manhã especial</h3>
+        <p>Um café preparado com amor para começar bem o dia.</p>
+        <button onclick="usarVale('Vale de café da manhã especial')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de passeio juntos</h3>
+        <p>Um momento só nosso para criar mais uma memória bonita.</p>
+        <button onclick="usarVale('Vale de passeio juntos')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de desculpa com carinho</h3>
+        <p>Para aqueles momentos em que o amor fala mais alto.</p>
+        <button onclick="usarVale('Vale de desculpa com carinho')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de dormir agarradinho</h3>
+        <p>Um vale para ficar pertinho e esquecer do mundo.</p>
+        <button onclick="usarVale('Vale de dormir agarradinho')">Usar vale</button>
+      </div>
+
+      <div class="vale">
+        <h3>Vale de carinho infinito</h3>
+        <p>Carinho sem hora para acabar.</p>
+        <button onclick="usarVale('Vale de carinho infinito')">Usar vale</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       6. QUIZ DO CASAL
+       As perguntas e alternativas ficam no JavaScript.
+       ============================== -->
+  <section id="quiz" class="animar">
+    <h2>Quiz do nosso amor 💘</h2>
+    <p class="subtitulo">
+      Uma brincadeira rápida para testar as memórias do casal.
+    </p>
+
+    <div class="card quiz-box">
+      <div class="quiz-pergunta" id="quizPergunta"></div>
+      <div class="quiz-opcoes" id="quizOpcoes"></div>
+      <div class="quiz-resultado" id="quizResultado"></div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       7. JOGUINHO SIMPLES ROMÂNTICO
+       ============================== -->
+  <section id="joguinho" class="animar">
+    <h2>Colete os corações ❤️</h2>
+    <p class="subtitulo">
+      Clique nos corações que aparecerem antes do tempo acabar.
+    </p>
+
+    <div class="jogo-container">
+      <div class="painel-jogo">
+        <div class="info-jogo">Pontos: <span id="pontos">0</span></div>
+        <div class="info-jogo">Tempo: <span id="tempo">20</span>s</div>
+      </div>
+
+      <button class="botao-principal" onclick="iniciarJogo()">Iniciar jogo</button>
+
+      <div class="area-jogo" id="areaJogo"></div>
+
+      <p class="mensagem-final-jogo" id="mensagemFinalJogo"></p>
+    </div>
+  </section>
+
+  <!-- ==============================
+       8. LUGARES E MEMÓRIAS
+       TROQUE AQUI:
+       - Nome do lugar
+       - Foto
+       - Texto
+       - Data
+       ============================== -->
+  <section id="memorias" class="animar">
+    <h2>Lugares e memórias 🗺️</h2>
+    <p class="subtitulo">
+      Espaço para guardar lugares importantes da história de vocês.
+    </p>
+
+    <div class="grid-memorias">
+      <div class="card">
+        <div class="memoria-img">Imagem do lugar</div>
+        <h3>Onde nos conhecemos</h3>
+        <p>Conte aqui a memória desse lugar especial.</p>
+        <p class="memoria-data">Data opcional</p>
+      </div>
+
+      <div class="card">
+        <div class="memoria-img">Imagem do lugar</div>
+        <h3>Lugar do primeiro beijo</h3>
+        <p>Escreva aqui como esse momento aconteceu.</p>
+        <p class="memoria-data">Data opcional</p>
+      </div>
+
+      <div class="card">
+        <div class="memoria-img">Imagem do lugar</div>
+        <h3>Passeio especial</h3>
+        <p>Conte sobre um passeio que marcou vocês dois.</p>
+        <p class="memoria-data">Data opcional</p>
+      </div>
+
+      <div class="card">
+        <div class="memoria-img">Imagem do lugar</div>
+        <h3>Nosso lugar favorito</h3>
+        <p>Explique por que esse lugar é tão importante.</p>
+        <p class="memoria-data">Data opcional</p>
+      </div>
+
+      <div class="card">
+        <div class="memoria-img">Imagem do lugar</div>
+        <h3>Um lugar que ainda queremos visitar</h3>
+        <p>Coloque aqui um sonho de passeio para o futuro.</p>
+        <p class="memoria-data">Data opcional</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       9. CARTINHA ROMÂNTICA
+       TROQUE AQUI:
+       - Texto da carta
+       ============================== -->
+  <section id="carta" class="animar">
+    <h2>Uma cartinha para você 💌</h2>
+    <p class="subtitulo">
+      Um espaço para escrever uma declaração mais especial.
+    </p>
+
+    <div class="carta-area">
+      <div class="envelope">
+        <h3>Tem uma cartinha guardada aqui...</h3>
+        <p>Clique para abrir com carinho.</p>
+        <br>
+        <button class="botao-principal" onclick="abrirCarta()">Abrir cartinha</button>
+      </div>
+
+      <div class="carta" id="cartaTexto">
+        <span class="tag-editar">Edite este texto depois</span>
+
+        <p>
+          Meu amor,
+        </p>
+
+        <p>
+          Eu queria transformar em palavras um pouquinho do que você significa para mim.
+          Desde que você chegou na minha vida, muitos dias ficaram mais leves,
+          muitos momentos ficaram mais bonitos e muitas memórias passaram a ter um sentido especial.
+        </p>
+
+        <p>
+          Esse site é só um pequeno presente, mas foi feito para lembrar que o meu carinho por você
+          está nos detalhes, nas conversas, nos sorrisos e em cada momento que a gente vive juntos.
+        </p>
+
+        <p>
+          Obrigado por ser essa pessoa tão especial. Eu te amo muito ❤️
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       10. PLAYLIST DO CASAL
+       TROQUE AQUI:
+       - Nome da música
+       - Artista
+       - Motivo
+       - Link do Spotify ou YouTube
+       ============================== -->
+  <section id="playlist" class="animar">
+    <h2>Nossa trilha sonora 🎶</h2>
+    <p class="subtitulo">
+      Espaço para colocar as músicas que combinam com vocês.
+    </p>
+
+    <div class="grid-playlist">
+      <div class="card musica-card">
+        <h3>Nome da música 1</h3>
+        <p><strong>Artista:</strong> Nome do artista</p>
+        <p><strong>Motivo:</strong> Essa música lembra um momento especial nosso.</p>
+        <a href="#" target="_blank">Abrir música</a>
+      </div>
+
+      <div class="card musica-card">
+        <h3>Nome da música 2</h3>
+        <p><strong>Artista:</strong> Nome do artista</p>
+        <p><strong>Motivo:</strong> Essa música tem a nossa vibe.</p>
+        <a href="#" target="_blank">Abrir música</a>
+      </div>
+
+      <div class="card musica-card">
+        <h3>Nome da música 3</h3>
+        <p><strong>Artista:</strong> Nome do artista</p>
+        <p><strong>Motivo:</strong> Essa música parece ter sido feita para nós.</p>
+        <a href="#" target="_blank">Abrir música</a>
+      </div>
+
+      <div class="card musica-card">
+        <h3>Nome da música 4</h3>
+        <p><strong>Artista:</strong> Nome do artista</p>
+        <p><strong>Motivo:</strong> Uma música para lembrar de nós dois.</p>
+        <a href="#" target="_blank">Abrir música</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       11. SURPRESA FINAL
+       TROQUE AQUI:
+       - Mensagem final
+       ============================== -->
+  <section id="surpresa" class="surpresa animar">
+    <h2>Surpresa final ✨</h2>
+    <p class="subtitulo">
+      O último detalhe desse presente digital.
+    </p>
+
+    <button class="botao-principal" onclick="mostrarSurpresa()">
+      Clique para receber seu presente final
+    </button>
+
+    <div class="mensagem-surpresa" id="mensagemSurpresa">
+      Meu maior presente é ter você na minha vida. Eu te amo muito ❤️
+    </div>
+  </section>
+
+  <!-- ==============================
+       MODAL USADO NOS VALES
+       ============================== -->
+  <div class="modal" id="modal">
+    <div class="modal-conteudo">
+      <h3 id="modalTitulo">Vale ativado!</h3>
+      <p id="modalTexto">
+        Vale ativado com sucesso! Agora é só cobrar do seu amor ❤️
+      </p>
+      <button class="botao-principal" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    /* =====================================================
+       CORAÇÕES FLUTUANDO NA TELA INICIAL
+       ===================================================== */
+
+    function criarCoracoesFlutuantes() {
+      const inicio = document.querySelector(".inicio");
+
+      for (let i = 0; i < 22; i++) {
+        const coracao = document.createElement("div");
+        coracao.classList.add("coracao-flutuante");
+        coracao.innerHTML = "❤";
+
+        coracao.style.left = Math.random() * 100 + "%";
+        coracao.style.animationDelay = Math.random() * 8 + "s";
+        coracao.style.animationDuration = 6 + Math.random() * 5 + "s";
+        coracao.style.fontSize = 16 + Math.random() * 26 + "px";
+
+        inicio.appendChild(coracao);
+      }
+    }
+
+    criarCoracoesFlutuantes();
+
+    /* =====================================================
+       20 COISAS QUE AMO EM VOCÊ
+       EDITE AQUI OS TEXTOS DOS 20 CARDS
+       ===================================================== */
+
+    const coisasQueAmo = [
+      "Amo o seu sorriso.",
+      "Amo seu jeito de cuidar de mim.",
+      "Amo quando você me faz rir.",
+      "Amo estar com você.",
+      "Amo seu olhar.",
+      "Amo sua voz.",
+      "Amo quando você fica toda carinhosa.",
+      "Amo nossas conversas.",
+      "Amo nossos momentos bobos.",
+      "Amo o jeito que você me entende.",
+      "Amo quando a gente cria memórias juntos.",
+      "Amo sua companhia.",
+      "Amo o seu abraço.",
+      "Amo sua risada.",
+      "Amo quando você me dá atenção.",
+      "Amo seu jeitinho único.",
+      "Amo como você deixa meus dias melhores.",
+      "Amo sonhar com o futuro ao seu lado.",
+      "Amo cada detalhe seu.",
+      "Amo você por completo."
+    ];
+
+    const gridAmor = document.getElementById("gridAmor");
+    const mensagemAmor = document.getElementById("mensagemAmor");
+
+    coisasQueAmo.forEach((texto, index) => {
+      const botao = document.createElement("button");
+      botao.classList.add("botao-amor");
+      botao.textContent = index + 1;
+
+      botao.addEventListener("click", () => {
+        mensagemAmor.textContent = texto + " ❤️";
+        mensagemAmor.style.animation = "none";
+        mensagemAmor.offsetHeight;
+        mensagemAmor.style.animation = "aparecer 0.4s ease";
+      });
+
+      gridAmor.appendChild(botao);
+    });
+
+    /* =====================================================
+       VALES DO AMOR
+       ===================================================== */
+
+    function usarVale(nomeVale) {
+      document.getElementById("modalTitulo").textContent = nomeVale;
+      document.getElementById("modalTexto").textContent =
+        "Vale ativado com sucesso! Agora é só cobrar do seu amor ❤️";
+
+      document.getElementById("modal").classList.add("ativo");
+      criarExplosaoCoracoes();
+    }
+
+    function fecharModal() {
+      document.getElementById("modal").classList.remove("ativo");
+    }
+
+    document.getElementById("modal").addEventListener("click", function(event) {
+      if (event.target === this) {
+        fecharModal();
+      }
+    });
+
+    /* =====================================================
+       QUIZ DO NOSSO AMOR
+       EDITE AQUI:
+       - Perguntas
+       - Alternativas
+       - Resposta correta
+       
+       A resposta correta começa contando do 0.
+       Exemplo:
+       correta: 0 significa primeira alternativa.
+       correta: 1 significa segunda alternativa.
+       ===================================================== */
+
+    const perguntasQuiz = [
+      {
+        pergunta: "Onde foi nosso primeiro encontro?",
+        opcoes: ["Lugar especial 1", "Lugar especial 2", "Lugar especial 3", "Lugar especial 4"],
+        correta: 0
+      },
+      {
+        pergunta: "Qual foi uma das nossas melhores memórias?",
+        opcoes: ["Um passeio juntos", "Uma conversa aleatória", "Um dia engraçado", "Todas as opções"],
+        correta: 3
+      },
+      {
+        pergunta: "Quem é mais carinhoso?",
+        opcoes: ["Você", "Eu", "Nós dois", "Depende do dia"],
+        correta: 2
+      },
+      {
+        pergunta: "Quem demora mais para responder mensagem?",
+        opcoes: ["Você", "Eu", "Os dois", "Ninguém admite"],
+        correta: 3
+      },
+      {
+        pergunta: "Qual é nosso programa favorito juntos?",
+        opcoes: ["Ver filme", "Comer algo", "Conversar", "Ficar juntinhos"],
+        correta: 3
+      }
+    ];
+
+    let perguntaAtual = 0;
+    let pontuacaoQuiz = 0;
+
+    const quizPergunta = document.getElementById("quizPergunta");
+    const quizOpcoes = document.getElementById("quizOpcoes");
+    const quizResultado = document.getElementById("quizResultado");
+
+    function carregarPergunta() {
+      const atual = perguntasQuiz[perguntaAtual];
+
+      quizPergunta.textContent = atual.pergunta;
+      quizOpcoes.innerHTML = "";
+      quizResultado.textContent = "";
+
+      atual.opcoes.forEach((opcao, index) => {
+        const botao = document.createElement("button");
+        botao.textContent = opcao;
+
+        botao.addEventListener("click", () => {
+          responderQuiz(index);
+        });
+
+        quizOpcoes.appendChild(botao);
+      });
+    }
+
+    function responderQuiz(resposta) {
+      if (resposta === perguntasQuiz[perguntaAtual].correta) {
+        pontuacaoQuiz++;
+      }
+
+      perguntaAtual++;
+
+      if (perguntaAtual < perguntasQuiz.length) {
+        carregarPergunta();
+      } else {
+        mostrarResultadoQuiz();
+      }
+    }
+
+    function mostrarResultadoQuiz() {
+      quizPergunta.textContent = "Resultado do quiz";
+      quizOpcoes.innerHTML = "";
+
+      quizResultado.innerHTML = `
+        Você fez ${pontuacaoQuiz} de ${perguntasQuiz.length} pontos.<br><br>
+        Não importa a pontuação, o prêmio é continuar vivendo nossa história juntos. ❤️
+        <br><br>
+        <button class="botao-principal" onclick="reiniciarQuiz()">Jogar de novo</button>
+      `;
+    }
+
+    function reiniciarQuiz() {
+      perguntaAtual = 0;
+      pontuacaoQuiz = 0;
+      carregarPergunta();
+    }
+
+    carregarPergunta();
+
+    /* =====================================================
+       JOGO DE CLICAR EM CORAÇÕES
+       ===================================================== */
+
+    let pontos = 0;
+    let tempo = 20;
+    let jogoAtivo = false;
+    let intervaloTempo;
+    let intervaloCoracoes;
+
+    const areaJogo = document.getElementById("areaJogo");
+    const pontosTexto = document.getElementById("pontos");
+    const tempoTexto = document.getElementById("tempo");
+    const mensagemFinalJogo = document.getElementById("mensagemFinalJogo");
+
+    function iniciarJogo() {
+      pontos = 0;
+      tempo = 20;
+      jogoAtivo = true;
+
+      pontosTexto.textContent = pontos;
+      tempoTexto.textContent = tempo;
+      mensagemFinalJogo.textContent = "";
+      areaJogo.innerHTML = "";
+
+      clearInterval(intervaloTempo);
+      clearInterval(intervaloCoracoes);
+
+      intervaloTempo = setInterval(() => {
+        tempo--;
+        tempoTexto.textContent = tempo;
+
+        if (tempo <= 0) {
+          finalizarJogo();
+        }
+      }, 1000);
+
+      intervaloCoracoes = setInterval(() => {
+        criarCoracaoDoJogo();
+      }, 650);
+    }
+
+    function criarCoracaoDoJogo() {
+      if (!jogoAtivo) return;
+
+      const coracao = document.createElement("div");
+      coracao.classList.add("coracao-jogo");
+      coracao.textContent = "❤️";
+
+      const larguraArea = areaJogo.clientWidth;
+      const alturaArea = areaJogo.clientHeight;
+
+      const x = Math.random() * (larguraArea - 45);
+      const y = Math.random() * (alturaArea - 45);
+
+      coracao.style.left = x + "px";
+      coracao.style.top = y + "px";
+
+      coracao.addEventListener("click", () => {
+        pontos++;
+        pontosTexto.textContent = pontos;
+        coracao.remove();
+      });
+
+      areaJogo.appendChild(coracao);
+
+      setTimeout(() => {
+        coracao.remove();
+      }, 1300);
+    }
+
+    function finalizarJogo() {
+      jogoAtivo = false;
+      clearInterval(intervaloTempo);
+      clearInterval(intervaloCoracoes);
+      areaJogo.innerHTML = "";
+
+      mensagemFinalJogo.textContent =
+        "Você coletou vários corações, mas o meu você já tem faz tempo ❤️";
+    }
+
+    /* =====================================================
+       CARTINHA
+       ===================================================== */
+
+    function abrirCarta() {
+      const carta = document.getElementById("cartaTexto");
+      carta.classList.toggle("aberta");
+
+      if (carta.classList.contains("aberta")) {
+        carta.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+
+    /* =====================================================
+       SURPRESA FINAL
+       ===================================================== */
+
+    function mostrarSurpresa() {
+      const mensagem = document.getElementById("mensagemSurpresa");
+      mensagem.classList.add("ativa");
+      criarExplosaoCoracoes();
+    }
+
+    function criarExplosaoCoracoes() {
+      for (let i = 0; i < 18; i++) {
+        const coracao = document.createElement("div");
+        coracao.textContent = "❤️";
+        coracao.style.position = "fixed";
+        coracao.style.left = Math.random() * 100 + "vw";
+        coracao.style.top = "100vh";
+        coracao.style.fontSize = 18 + Math.random() * 22 + "px";
+        coracao.style.zIndex = "3000";
+        coracao.style.pointerEvents = "none";
+        coracao.style.animation = `subirCoracao ${3 + Math.random() * 2}s linear forwards`;
+
+        document.body.appendChild(coracao);
+
+        setTimeout(() => {
+          coracao.remove();
+        }, 5000);
+      }
+    }
+
+    /* =====================================================
+       ANIMAÇÃO DOS CARDS AO ROLAR A TELA
+       ===================================================== */
+
+    const elementosAnimados = document.querySelectorAll(".animar");
+
+    function verificarAnimacaoScroll() {
+      elementosAnimados.forEach((elemento) => {
+        const posicao = elemento.getBoundingClientRect().top;
+        const alturaTela = window.innerHeight * 0.85;
+
+        if (posicao < alturaTela) {
+          elemento.classList.add("visivel");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", verificarAnimacaoScroll);
+    window.addEventListener("load", verificarAnimacaoScroll);
+  </script>
+</body>
+</html>
